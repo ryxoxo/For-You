@@ -218,6 +218,13 @@ noBtn.addEventListener("click", function(e) {
 });
 
 
+// Backup click (just in case)
+noBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
+
 /* YES click */
 yesBtn.addEventListener("click", () => {
     message.style.display = "block";
@@ -270,5 +277,6 @@ function launchConfetti() {
 
 </body>
 </html>
+
 
 
