@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Michael 💜</title>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #2d004d, #7b2cbf);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* Loading Screen */
+#loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #2d004d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 9999;
+}
+
+/* Main Container */
+.container {
+    text-align: center;
+    position: relative;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Framed Image */
+.image-frame {
+    margin: 15px auto 25px auto;
+    padding: 10px;
+    background: white;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.image-frame img {
+    width: 220px;
+    border-radius: 15px;
+    display: block;
+}
+
+/* Buttons Row */
+.button-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 14px 28px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#yesBtn {
+    background: white;
+    color: #6a0dad;
+    font-weight: bold;
+}
+
+#noBtn {
+    background: #6a0dad;
+    color: white;
+}
+
+.or-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Message */
+.message {
+    margin-top: 25px;
+    font-size: 22px;
+    display: none;
+}
+
+/* Floating hearts background */
+.heart {
+    position: fixed;
+    font-size: 20px;
+    animation: floatUp 6s linear forwards;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Confetti squares */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall 3s linear forwards;
+}
+
+/* Heart confetti */
+.heart-confetti {
+    position: fixed;
+    top: -10px;
+    font-size: 18px;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading">Preparing something special for Mike 💜...</div>
+
+<div class="container" style="display:none;" id="mainContent">
+    <h1 id="title">Michael 💜<br>Will you be my Valentine?</h1>
+
+    <div class="image-frame">
+        <img src="https://media1.tenor.com/m/3yHKdFd2FjwAAAAC/love-anime-love.gif" alt="Cute Valentine Gif">
+    </div>
+
+    <div class="button-row" id="buttonRow">
+        <button id="yesBtn">YES 💜</button>
+        <div class="or-text">OR</div>
+        <button id="noBtn">NO 😈</button>
+    </div>
+
+    <div class="message" id="loveMessage">
+        YIPEEEE 💜<br>
+        You are officially mine now, Mike 😌✨<br>
+        No refunds. No returns. Eternal contract activated.
+    </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("loveMessage");
+const title = document.getElementById("title");
+const loading = document.getElementById("loading");
+const mainContent = document.getElementById("mainContent");
+const buttonRow = document.getElementById("buttonRow");
+
+let scale = 1;
+
+/* Fake loading */
+setTimeout(() => {
+    loading.style.display = "none";
+    mainContent.style.display = "block";
+}, 2500);
+
+/* Switch Michael & Mike */
+setInterval(() => {
+    if (title.innerHTML.includes("Michael")) {
+        title.innerHTML = "Mike 💜<br>Will you be my Valentine?";
+    } else {
+        title.innerHTML = "Michael 💜<br>Will you be my Valentine?";
+    }
+}, 2000);
+
+/* Running NO button */
+noBtn.addEventListener("mouseover", () => {
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+
+    scale *= 0.9;
+    noBtn.style.transform = `scale(${scale})`;
+});
+
+/* YES click */
+yesBtn.addEventListener("click", () => {
+    message.style.display = "block";
+    buttonRow.style.display = "none";
+    launchConfetti();
+
+    setTimeout(() => {
+        alert("Too late, Michael. You're my Valentine now. 💜");
+    }, 800);
+});
+
+/* Floating hearts background */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💜";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 400);
+
+/* Confetti + Heart Confetti */
+function launchConfetti() {
+    for (let i = 0; i < 120; i++) {
+
+        // Square confetti
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor =
+            ["#ffffff","#d8b4ff","#c77dff","#9d4edd"][Math.floor(Math.random()*4)];
+        confetti.style.animationDuration = (2 + Math.random()*2) + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+
+        // Heart confetti
+        const heartConfetti = document.createElement("div");
+        heartConfetti.className = "heart-confetti";
+        heartConfetti.innerHTML = "💜";
+        heartConfetti.style.left = Math.random() * 100 + "vw";
+        heartConfetti.style.fontSize = (14 + Math.random()*12) + "px";
+        heartConfetti.style.animationDuration = (2 + Math.random()*2) + "s";
+        document.body.appendChild(heartConfetti);
+        setTimeout(() => heartConfetti.remove(), 4000);
+    }
+}
+</script>
+
+</body>
+</html>
