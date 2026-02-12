@@ -186,8 +186,8 @@ setInterval(() => {
     }
 }, 2000);
 
-/* Running NO button */
-noBtn.addEventListener("mouseover", () => {
+/* Running NO button (works on desktop + mobile) */
+function moveNoButton() {
     const maxX = window.innerWidth - noBtn.offsetWidth;
     const maxY = window.innerHeight - noBtn.offsetHeight;
 
@@ -200,7 +200,23 @@ noBtn.addEventListener("mouseover", () => {
 
     scale *= 0.9;
     noBtn.style.transform = `scale(${scale})`;
+}
+
+// Desktop hover
+noBtn.addEventListener("mouseover", moveNoButton);
+
+// Mobile touch
+noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault(); // stops accidental click
+    moveNoButton();
 });
+
+// Backup click (just in case)
+noBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    moveNoButton();
+});
+
 
 /* YES click */
 yesBtn.addEventListener("click", () => {
@@ -254,4 +270,5 @@ function launchConfetti() {
 
 </body>
 </html>
+
 
